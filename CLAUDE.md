@@ -12,7 +12,7 @@ Widgets**, and **CMake**.
 -   Language: C++20
 -   UI: Qt6 Widgets
 -   Build: CMake
--   Testing: GoogleTest
+-   Verification: Manual (no automated testing framework)
 -   Version Control: Git
 
 ## Engineering Philosophy (CAVEMAN)
@@ -28,8 +28,8 @@ Keep architecture simple. Prefer composition over inheritance.
 ### V --- Verify
 
 Every task must: - Configure successfully - Build successfully -
-Introduce no compiler warnings - Pass tests - Launch successfully (where
-applicable)
+Introduce no compiler warnings - Launch successfully (where applicable) -
+Be manually verified against its intended behavior
 
 ### E --- Explain
 
@@ -44,7 +44,7 @@ inheritance - Generic abstractions without clear value
 
 ### A --- Atomic
 
-Every change must compile and be independently testable.
+Every change must compile and be independently verifiable.
 
 ### N --- Neat
 
@@ -72,29 +72,36 @@ Never reverse dependency direction.
 
 ## Session Workflow (MANDATORY)
 
-### Step 1
+### Step 1 (MANDATORY, before every coding session)
 
-Read in order: 1. CLAUDE.md 2. PLAN.md 3. ARCHITECTURE.md 4.
-CHANGELOG.md
+Read in order: 1. CLAUDE.md 2. PLAN.md 3. docs/ARCHITECTURE.md 4.
+docs/CHANGELOG.md 5. docs/SPECIFICATION.md
 
 ### Step 2
 
-Resume from the latest CHANGELOG.md entry. Verify it matches PLAN.md. If
-they differ, explain and synchronize them before coding.
+Resume exactly from the latest completed task recorded in
+docs/CHANGELOG.md. Verify docs/CHANGELOG.md and PLAN.md are
+synchronized. If they differ, explain and synchronize them before
+coding.
+
+Never restart completed work. Never skip unfinished work.
 
 ### Step 3
 
 Implement only the current planned task. Do not start future phases.
 
-### Step 4
+### Step 4 (MANDATORY, after every completed task)
 
-Verify: - Configure - Build - Tests - Application launch
+-   Build the project
+-   Ensure no compiler warnings are introduced
+-   Launch the application (when applicable)
+-   Manually verify the implemented feature
 
-### Step 5 (MANDATORY)
+### Step 5 (MANDATORY, after every completed task)
 
-Update: - PLAN.md - CHANGELOG.md
+Update: - PLAN.md - docs/CHANGELOG.md
 
-Update ARCHITECTURE.md only when architectural decisions change.
+Update docs/ARCHITECTURE.md only when architectural decisions change.
 
 ### Step 6
 

@@ -4,10 +4,11 @@
 
 Status: ⬜ Not Started
 
-Goals - Repository - CMake - Qt6 - GoogleTest - Logging - Settings -
-MainWindow - CI skeleton
+Goals - Repository - CMake - Qt6 - Logging - Settings - MainWindow - CI
+skeleton
 
-Acceptance - Builds cleanly - Launches - Tests run
+Acceptance - Configure succeeds - Build succeeds - Application
+launches - Manual verification completed
 
 ## Phase 1 --- Text Compare Engine
 
@@ -18,7 +19,9 @@ Status: ⬜ Not Started
 -   Text normalization
 -   LCS diff
 -   Diff model
--   Tests
+
+Acceptance - Configure succeeds - Build succeeds - Application
+launches - Manual verification completed
 
 ## Phase 2 --- Qt UI
 
@@ -31,6 +34,9 @@ Status: ⬜ Not Started
 -   Scroll sync
 -   Theme
 
+Acceptance - Configure succeeds - Build succeeds - Application
+launches - Manual verification completed
+
 ## Phase 3 --- Folder Comparison
 
 Status: ⬜ Not Started
@@ -40,6 +46,9 @@ Status: ⬜ Not Started
 -   Size/date/hash comparison
 -   Tree view
 
+Acceptance - Configure succeeds - Build succeeds - Application
+launches - Manual verification completed
+
 ## Phase 4 --- Binary Comparison
 
 Status: ⬜ Not Started
@@ -47,6 +56,9 @@ Status: ⬜ Not Started
 -   Hex viewer
 -   ASCII view
 -   Diff highlighting
+
+Acceptance - Configure succeeds - Build succeeds - Application
+launches - Manual verification completed
 
 ## Future
 

@@ -11,7 +11,6 @@ built with C++20, Qt6 Widgets, and CMake.
 - C++20
 - Qt6 (Core, Gui, Widgets)
 - CMake 3.28+
-- GoogleTest
 
 ## Building
 
@@ -37,11 +36,9 @@ cmake -B build -DCMAKE_PREFIX_PATH=<path-to-Qt6>/lib/cmake
 cmake --build build
 ```
 
-## Running tests
-
-```sh
-ctest --test-dir build --output-on-failure
-```
+This project uses no automated testing framework. Every change is
+verified by configuring, building, launching the application, and
+manually exercising the feature.
 
 ## Running the app
 
@@ -62,7 +59,6 @@ src/
   merge/     Merge tooling (future)
   models/    Shared data models (future)
   utils/     Logging, settings, and other utilities
-tests/       GoogleTest unit tests
 docs/        Architecture and specification documents
 ```
 

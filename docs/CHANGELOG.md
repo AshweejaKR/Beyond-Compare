@@ -1,6 +1,6 @@
 # CHANGELOG
 
-This file is the resume point for every Claude Code session.
+This file is the mandatory resume point for every Claude Code session.
 
 ## Unreleased
 
@@ -25,7 +25,8 @@ Files Created - ...
 
 Files Modified - ...
 
-Verification - Configure - Build - Tests
+Verification - Configure - Build - Application Launch - Manual
+Feature Verification
 
 Documentation Updated - PLAN.md - CHANGELOG.md - ARCHITECTURE.md (if
 required)

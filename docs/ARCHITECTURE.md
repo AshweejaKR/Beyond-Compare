@@ -52,9 +52,15 @@ UI thread: - Rendering - Input
 
 Workers: - File loading - Folder scan - Hashing - Diff computation
 
-## Testing
+## Verification
 
-Unit test all core modules.
+This project uses no automated testing framework. Every change is
+verified manually:
+
+-   Successful configuration
+-   Successful build
+-   Successful application launch
+-   Manual verification of the implemented feature
 
 ## Architectural Decision Log
 

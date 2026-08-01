@@ -10,7 +10,6 @@ CMakeFiles/
 CMakeScripts/
 cmake_install.cmake
 compile_commands.json
-CTestTestfile.cmake
 _deps/
 
 # vcpkg (if bundled locally instead of using a system install)

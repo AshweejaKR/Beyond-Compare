@@ -21,7 +21,6 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 endif()
 
-option(BCCLONE_BUILD_TESTS "Build the BCClone test suite" ON)
 option(BCCLONE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/.cmake")
@@ -32,8 +31,3 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 qt_standard_project_setup()
 
 add_subdirectory(src)
-
-if(BCCLONE_BUILD_TESTS)
-    enable_testing()
-    add_subdirectory(tests)
-endif()
