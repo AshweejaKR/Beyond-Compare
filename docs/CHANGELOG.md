@@ -6,14 +6,40 @@ This file is the mandatory resume point for every Claude Code session.
 
 ### Current Status
 
-Project initialized.
+Phase 0 (project foundation) complete: CMake + Qt6 configure and
+build cleanly, the app launches, and MainWindow, Logger, and
+SettingsManager are wired up.
 
-No implementation completed yet.
-
-Next Resume Point: - Start Phase 0 - Read CLAUDE.md - Verify PLAN.md -
-Begin project initialization
+Next Resume Point: - Start Phase 1 (Text Compare Engine) - Read
+CLAUDE.md - Verify PLAN.md - Begin file loading / encoding detection
 
 ------------------------------------------------------------------------
+
+### 2026-08-01
+
+Completed - Verified Phase 0 project foundation end-to-end: CMake
+configure, Qt6 (via vcpkg) build, and application launch, on
+Windows/MSVC. - Fixed a CMake bug where `WIN32_EXECUTABLE` was passed
+as an argument to `qt_add_executable` instead of set as a target
+property, which broke configure on this Qt6 build. - Fixed the app
+failing to start ("no Qt platform plugin could be initialized") by
+deploying `Qt6::QWindowsIntegrationPlugin` next to the executable via
+a `POST_BUILD` custom command.
+
+Files Created - (none; existing Phase 0 scaffold from the prior
+session was verified and repaired, not recreated)
+
+Files Modified - src/app/CMakeLists.txt
+
+Verification - Configure: pass - Build: pass, zero compiler warnings
+(MSVC /W4) - Application Launch: pass (verified via screenshot; menu
+bar, toolbar, and window title render correctly) - Manual Feature
+Verification: pass
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md
+
+Next Resume Point - Begin Phase 1: Text Compare Engine (file loading,
+encoding detection, text normalization, LCS diff, diff model).
 
 ## Entry Template
 
