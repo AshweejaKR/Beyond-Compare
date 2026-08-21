@@ -30,7 +30,8 @@ std::filesystem::path toPath(const QString& path) {
     return std::filesystem::path(path.toStdWString());
 #else
     const QByteArray utf8 = path.toUtf8();
-    return std::filesystem::u8path(utf8.constData(), utf8.constData() + utf8.size());
+    const auto* begin = reinterpret_cast<const char8_t*>(utf8.constData());
+    return std::filesystem::path(std::u8string(begin, begin + utf8.size()));
 #endif
 }
 

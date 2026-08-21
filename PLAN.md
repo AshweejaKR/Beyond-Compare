@@ -51,7 +51,7 @@ launches - Manual verification completed
 
 ## Phase 4 --- Binary Comparison
 
-Status: ⬜ Not Started
+Status: ✅ Complete
 
 -   Hex viewer
 -   ASCII view
@@ -141,3 +141,22 @@ Decisions - Content hashing is enabled by default for correctness; users
 can disable it when a faster size/date-only comparison is sufficient.
 
 Next Task - Phase 4: Binary comparison with hex/ASCII views.
+
+### 2026-08-21 --- Phase 4 Complete
+
+Completed - Added bounded binary file loading, byte comparison, aligned
+hexadecimal and ASCII views, synchronized scrolling, and byte-level
+difference highlighting. Corrected CI triggers to use the repository's
+actual default branch.
+
+Verification - Configured with CMake 3.31 and Qt 6.7.3 on Linux, built
+the complete application with GCC warnings treated as errors, launched
+the full UI using Qt's offscreen platform, and manually exercised text,
+folder, and binary engines with representative temporary files. All pass.
+
+Decisions - Limited the initial interactive binary viewer to 2 MiB per
+file so the plain-text hex presentation remains responsive. Larger-file
+streaming belongs to the planned performance phase.
+
+Next Task - Future Phase 5: Merge Tool. The requested text, folder, and
+binary comparison baseline is complete.

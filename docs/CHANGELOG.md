@@ -6,11 +6,33 @@ This file is the mandatory resume point for every Claude Code session.
 
 ### Current Status
 
-Phase 3 (Folder Comparison) complete: recursive filtered scans and
-content-aware status results are available in a hierarchical tree.
+Phases 0-4 complete. The application provides working text, folder, and
+binary comparison workflows.
 
-Next Resume Point: - Start Phase 4 (Binary Comparison) - Add hex/ASCII
-views and byte-level difference highlighting
+Next Resume Point: - Future Phase 5 (Merge Tool), only when requested
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 4
+
+Completed - Added bounded binary loading/comparison, synchronized hex
+and ASCII views, and byte-level difference highlighting. Corrected the CI
+workflow to target the repository's `master` branch.
+
+Files Created - src/models/BinaryDiffModel.h - src/binary/CMakeLists.txt -
+src/binary/BinaryCompareEngine.h/.cpp - src/ui/BinaryCompareWidget.h/.cpp
+
+Files Modified - src/CMakeLists.txt - src/ui/CMakeLists.txt -
+src/ui/MainWindow.h/.cpp - .github/workflows/ci.yml
+
+Verification - Source, bounds, and UI rendering review: pass - Final
+configure: pass - Full build: pass with warnings treated as errors -
+Application launch: pass with Qt offscreen platform - Manual text,
+folder, and binary comparison checks with temporary sample data: pass
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md - README.md
+
+Next Resume Point - Future Phase 5: Merge Tool, only when requested.
 
 ------------------------------------------------------------------------
 

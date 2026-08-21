@@ -14,6 +14,7 @@
 #include <QTabWidget>
 #include <QToolBar>
 
+#include "ui/BinaryCompareWidget.h"
 #include "ui/FolderCompareWidget.h"
 #include "ui/TextCompareWidget.h"
 #include "utils/Logger.h"
@@ -54,8 +55,10 @@ MainWindow::MainWindow(QWidget* parent)
     m_tabs = new QTabWidget(this);
     m_textCompareWidget = new TextCompareWidget(m_tabs);
     m_folderCompareWidget = new FolderCompareWidget(m_tabs);
+    m_binaryCompareWidget = new BinaryCompareWidget(m_tabs);
     m_tabs->addTab(m_textCompareWidget, tr("Text Compare"));
     m_tabs->addTab(m_folderCompareWidget, tr("Folder Compare"));
+    m_tabs->addTab(m_binaryCompareWidget, tr("Binary Compare"));
     setCentralWidget(m_tabs);
 
     setupMenuBar();
@@ -66,6 +69,8 @@ MainWindow::MainWindow(QWidget* parent)
     connect(m_textCompareWidget, &TextCompareWidget::statusMessage, this,
             [this](const QString& message) { statusBar()->showMessage(message); });
     connect(m_folderCompareWidget, &FolderCompareWidget::statusMessage, this,
+            [this](const QString& message) { statusBar()->showMessage(message); });
+    connect(m_binaryCompareWidget, &BinaryCompareWidget::statusMessage, this,
             [this](const QString& message) { statusBar()->showMessage(message); });
 
     log(LogLevel::Info, "MainWindow initialized");
