@@ -3,7 +3,7 @@
 A modern, native, production-quality alternative to [Beyond Compare](https://www.scootersoftware.com/),
 built with C++20, Qt6 Widgets, and CMake.
 
-> **Status:** Phase 0 — project foundation. No comparison functionality exists yet.
+> **Status:** Phases 0-4 complete. Text, folder, and binary comparison are available.
 > See [PLAN.md](PLAN.md) for the roadmap and [docs/SPECIFICATION.md](docs/SPECIFICATION.md) for scope.
 
 ## Technology
@@ -36,15 +36,34 @@ cmake -B build -DCMAKE_PREFIX_PATH=<path-to-Qt6>/lib/cmake
 cmake --build build
 ```
 
-This project uses no automated testing framework. Every change is
-verified by configuring, building, launching the application, and
-manually exercising the feature.
+This project uses no automated testing framework. Every change is verified
+by configuring, building, launching the application, and manually exercising
+the feature. GitHub Actions builds both Windows and Linux targets.
 
 ## Running the app
+
+Linux/macOS (single-config generator):
 
 ```sh
 ./build/src/app/BCClone
 ```
+
+Windows with Visual Studio (multi-config generator):
+
+```powershell
+.\build\src\app\Debug\BCClone.exe
+```
+
+Use the tabs in the main window:
+
+1. **Text Compare** — choose left and right files. Differences are aligned
+   and highlighted; whitespace and case can be ignored. Use **Refresh** or
+   press **F5** after either source file changes on disk. The view can show
+   all lines or differences only, with optional original line numbers.
+2. **Folder Compare** — choose two folders, optionally enter filters such as
+   `*.cpp;*.h`, and compare. SHA-256 content verification is enabled by default.
+3. **Binary Compare** — choose two files up to 2 MiB each. Differing bytes are
+   highlighted in synchronized hex and ASCII views.
 
 ## Project layout
 
@@ -52,12 +71,12 @@ manually exercising the feature.
 src/
   app/       Application entry point
   ui/        Presentation (Qt widgets)
-  core/      Comparison engines and business logic (future)
-  compare/   Text/code comparison (future)
-  folder/    Folder comparison (future)
-  binary/    Binary comparison (future)
+  core/      Shared comparison business logic
+  compare/   Text loading, normalization, and LCS comparison
+  folder/    Recursive folder scanning and content comparison
+  binary/    Binary loading and byte comparison
   merge/     Merge tooling (future)
-  models/    Shared data models (future)
+  models/    Shared comparison result models
   utils/     Logging, settings, and other utilities
 docs/        Architecture and specification documents
 ```

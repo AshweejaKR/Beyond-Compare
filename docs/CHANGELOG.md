@@ -4,14 +4,116 @@ This file is the mandatory resume point for every Claude Code session.
 
 ## Unreleased
 
+### 2026-08-21 --- Text Compare Usability
+
+Completed - Added a manual Refresh command and F5 shortcut that reload both
+open text files from disk. Added Show all lines / Show differences only view
+selection and optional original line numbers in both panes.
+
+Files Modified - src/ui/TextCompareWidget.h/.cpp - src/ui/MainWindow.cpp -
+README.md
+
+Verification - Configure: pass - Full warnings-as-errors build: pass -
+Application launch: pass - Manual UI smoke check confirmed disk reload,
+differences-only filtering, and line-number toggling: pass.
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md - README.md
+
+------------------------------------------------------------------------
+
 ### Current Status
 
-Phase 0 (project foundation) complete: CMake + Qt6 configure and
-build cleanly, the app launches, and MainWindow, Logger, and
-SettingsManager are wired up.
+Phases 0-4 complete. The application provides working text, folder, and
+binary comparison workflows.
 
-Next Resume Point: - Start Phase 1 (Text Compare Engine) - Read
-CLAUDE.md - Verify PLAN.md - Begin file loading / encoding detection
+Next Resume Point: - Future Phase 5 (Merge Tool), only when requested
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 4
+
+Completed - Added bounded binary loading/comparison, synchronized hex
+and ASCII views, and byte-level difference highlighting. Corrected the CI
+workflow to target the repository's `master` branch.
+
+Files Created - src/models/BinaryDiffModel.h - src/binary/CMakeLists.txt -
+src/binary/BinaryCompareEngine.h/.cpp - src/ui/BinaryCompareWidget.h/.cpp
+
+Files Modified - src/CMakeLists.txt - src/ui/CMakeLists.txt -
+src/ui/MainWindow.h/.cpp - .github/workflows/ci.yml
+
+Verification - Source, bounds, and UI rendering review: pass - Final
+configure: pass - Full build: pass with warnings treated as errors -
+Application launch: pass with Qt offscreen platform - Manual text,
+folder, and binary comparison checks with temporary sample data: pass
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md - README.md
+
+Next Resume Point - Future Phase 5: Merge Tool, only when requested.
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 3
+
+Completed - Added recursive folder scanning, wildcard filters, size/date
+metadata comparison, optional SHA-256 verification, and a hierarchical
+tree with equal/different/left-only/right-only statuses.
+
+Files Created - src/models/FolderDiffModel.h - src/folder/CMakeLists.txt -
+src/folder/FolderComparator.h/.cpp - src/ui/FolderCompareWidget.h/.cpp
+
+Files Modified - src/CMakeLists.txt - src/ui/CMakeLists.txt -
+src/ui/MainWindow.h/.cpp
+
+Verification - Source, filesystem error-path, and UI model review: pass -
+Configure/build/app launch: delegated to CI because the current Linux
+workspace does not provide CMake or Qt6
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md
+
+Next Resume Point - Begin Phase 4: Binary Comparison.
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 2
+
+Completed - Added file selection, comparison controls, side-by-side
+editors, synchronized scrolling, diff highlighting, menu/toolbar actions,
+status reporting, and light/dark themes.
+
+Files Created - src/ui/TextCompareWidget.h/.cpp
+
+Files Modified - src/ui/CMakeLists.txt - src/ui/MainWindow.h/.cpp
+
+Verification - Source and signal/slot review: pass - Configure/build/app
+launch: delegated to CI because the current Linux workspace does not
+provide CMake or Qt6
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md
+
+Next Resume Point - Begin Phase 3: Folder Comparison.
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 1
+
+Completed - Implemented filesystem-based text file loading with UTF-8,
+UTF-16 LE/BE, and Latin-1 support. Added text normalization, LCS diff,
+and a shared side-by-side diff model.
+
+Files Created - src/models/DiffModel.h - src/compare/CMakeLists.txt -
+src/compare/TextFileLoader.h/.cpp - src/compare/TextNormalizer.h/.cpp -
+src/compare/TextCompareEngine.h/.cpp
+
+Files Modified - src/CMakeLists.txt
+
+Verification - Source and dependency review: pass - Configure/build/app
+launch: delegated to CI because the current Linux workspace does not
+provide CMake or Qt6
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md
+
+Next Resume Point - Begin Phase 2: Qt text comparison UI.
 
 ------------------------------------------------------------------------
 
