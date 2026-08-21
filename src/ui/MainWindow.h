@@ -5,9 +5,12 @@
 
 #include "utils/SettingsManager.h"
 
+class QTabWidget;
+
 namespace bcclone::ui {
 
 class TextCompareWidget;
+class FolderCompareWidget;
 
 // Top-level application window. Presentation only: owns the menu bar,
 // toolbar, status bar, and window chrome. No comparison logic lives here.
@@ -32,6 +35,8 @@ private:
 
     std::unique_ptr<utils::SettingsManager> m_settings;
     TextCompareWidget* m_textCompareWidget{nullptr};
+    FolderCompareWidget* m_folderCompareWidget{nullptr};
+    QTabWidget* m_tabs{nullptr};
 };
 
 } // namespace bcclone::ui

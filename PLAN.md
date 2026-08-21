@@ -39,7 +39,7 @@ launches - Manual verification completed
 
 ## Phase 3 --- Folder Comparison
 
-Status: ⬜ Not Started
+Status: ✅ Complete
 
 -   Recursive scan
 -   Filters
@@ -129,3 +129,15 @@ TextCompareWidget while MainWindow remains responsible for application
 chrome and themes.
 
 Next Task - Phase 3: Recursive folder comparison and tree view.
+
+### 2026-08-21 --- Phase 3 Complete
+
+Completed - Added recursive folder scanning, semicolon-separated wildcard
+filters, size and modification-time metadata, optional SHA-256 content
+comparison, left/right/equal/different classification, and a hierarchical
+colored tree view in a dedicated application tab.
+
+Decisions - Content hashing is enabled by default for correctness; users
+can disable it when a faster size/date-only comparison is sufficient.
+
+Next Task - Phase 4: Binary comparison with hex/ASCII views.

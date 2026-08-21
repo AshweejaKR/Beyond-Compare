@@ -11,8 +11,10 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QStatusBar>
+#include <QTabWidget>
 #include <QToolBar>
 
+#include "ui/FolderCompareWidget.h"
 #include "ui/TextCompareWidget.h"
 #include "utils/Logger.h"
 
@@ -49,8 +51,12 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), m_settings(std::make_unique<utils::SettingsManager>()) {
     setWindowTitle(tr("BCClone"));
     setWindowIcon(placeholderAppIcon());
-    m_textCompareWidget = new TextCompareWidget(this);
-    setCentralWidget(m_textCompareWidget);
+    m_tabs = new QTabWidget(this);
+    m_textCompareWidget = new TextCompareWidget(m_tabs);
+    m_folderCompareWidget = new FolderCompareWidget(m_tabs);
+    m_tabs->addTab(m_textCompareWidget, tr("Text Compare"));
+    m_tabs->addTab(m_folderCompareWidget, tr("Folder Compare"));
+    setCentralWidget(m_tabs);
 
     setupMenuBar();
     setupToolBar();
@@ -58,6 +64,8 @@ MainWindow::MainWindow(QWidget* parent)
     restoreWindowState();
 
     connect(m_textCompareWidget, &TextCompareWidget::statusMessage, this,
+            [this](const QString& message) { statusBar()->showMessage(message); });
+    connect(m_folderCompareWidget, &FolderCompareWidget::statusMessage, this,
             [this](const QString& message) { statusBar()->showMessage(message); });
 
     log(LogLevel::Info, "MainWindow initialized");

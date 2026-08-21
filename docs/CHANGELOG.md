@@ -6,11 +6,33 @@ This file is the mandatory resume point for every Claude Code session.
 
 ### Current Status
 
-Phase 2 (Qt UI) complete: the application can open and compare two text
-files in synchronized, highlighted side-by-side editors.
+Phase 3 (Folder Comparison) complete: recursive filtered scans and
+content-aware status results are available in a hierarchical tree.
 
-Next Resume Point: - Start Phase 3 (Folder Comparison) - Add recursive
-scanning, filters, metadata/content comparison, and a tree view
+Next Resume Point: - Start Phase 4 (Binary Comparison) - Add hex/ASCII
+views and byte-level difference highlighting
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 3
+
+Completed - Added recursive folder scanning, wildcard filters, size/date
+metadata comparison, optional SHA-256 verification, and a hierarchical
+tree with equal/different/left-only/right-only statuses.
+
+Files Created - src/models/FolderDiffModel.h - src/folder/CMakeLists.txt -
+src/folder/FolderComparator.h/.cpp - src/ui/FolderCompareWidget.h/.cpp
+
+Files Modified - src/CMakeLists.txt - src/ui/CMakeLists.txt -
+src/ui/MainWindow.h/.cpp
+
+Verification - Source, filesystem error-path, and UI model review: pass -
+Configure/build/app launch: delegated to CI because the current Linux
+workspace does not provide CMake or Qt6
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md
+
+Next Resume Point - Begin Phase 4: Binary Comparison.
 
 ------------------------------------------------------------------------
 
