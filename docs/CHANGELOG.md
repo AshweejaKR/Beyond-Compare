@@ -6,11 +6,31 @@ This file is the mandatory resume point for every Claude Code session.
 
 ### Current Status
 
-Phase 1 (text compare engine) complete: file loading, encoding detection,
-normalization, LCS comparison, and the shared diff model are implemented.
+Phase 2 (Qt UI) complete: the application can open and compare two text
+files in synchronized, highlighted side-by-side editors.
 
-Next Resume Point: - Start Phase 2 (Qt UI) - Add file selection,
-side-by-side editors, synchronized scrolling, and diff highlighting
+Next Resume Point: - Start Phase 3 (Folder Comparison) - Add recursive
+scanning, filters, metadata/content comparison, and a tree view
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 2
+
+Completed - Added file selection, comparison controls, side-by-side
+editors, synchronized scrolling, diff highlighting, menu/toolbar actions,
+status reporting, and light/dark themes.
+
+Files Created - src/ui/TextCompareWidget.h/.cpp
+
+Files Modified - src/ui/CMakeLists.txt - src/ui/MainWindow.h/.cpp
+
+Verification - Source and signal/slot review: pass - Configure/build/app
+launch: delegated to CI because the current Linux workspace does not
+provide CMake or Qt6
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md
+
+Next Resume Point - Begin Phase 3: Folder Comparison.
 
 ------------------------------------------------------------------------
 

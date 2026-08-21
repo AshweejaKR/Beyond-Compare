@@ -25,7 +25,7 @@ launches - Manual verification completed
 
 ## Phase 2 --- Qt UI
 
-Status: ⬜ Not Started
+Status: ✅ Complete
 
 -   Main window
 -   Menus
@@ -116,3 +116,16 @@ value types at the core boundary to avoid unnecessary text conversions
 while preserving the documented dependency direction.
 
 Next Task - Phase 2: Qt UI for opening, comparing, and viewing text files.
+
+### 2026-08-21 --- Phase 2 Complete
+
+Completed - Added a working side-by-side text comparison screen with
+left/right file pickers, compare options, aligned diff rows, colored
+highlights, synchronized scrolling, menus, toolbar actions, status
+messages, and light/dark themes.
+
+Decisions - Kept file workflow and diff rendering in a focused
+TextCompareWidget while MainWindow remains responsible for application
+chrome and themes.
+
+Next Task - Phase 3: Recursive folder comparison and tree view.
