@@ -1,6 +1,7 @@
 #include "ui/TextCompareWidget.h"
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QFileDialog>
 #include <QFontDatabase>
 #include <QFormLayout>
@@ -16,6 +17,7 @@
 #include <QTextCharFormat>
 #include <QTextCursor>
 #include <QVBoxLayout>
+#include <algorithm>
 #include <filesystem>
 
 #include "compare/TextCompareEngine.h"
@@ -77,12 +79,25 @@ void TextCompareWidget::setupUi() {
     auto* optionsLayout = new QHBoxLayout();
     m_ignoreWhitespace = new QCheckBox(tr("Ignore whitespace"), this);
     m_ignoreCase = new QCheckBox(tr("Ignore case"), this);
+    m_showLineNumbers = new QCheckBox(tr("Show line numbers"), this);
+    m_showLineNumbers->setChecked(true);
+    m_viewMode = new QComboBox(this);
+    m_viewMode->addItem(tr("Show all lines"));
+    m_viewMode->addItem(tr("Show differences only"));
+    auto* refreshButton = new QPushButton(tr("Refresh"), this);
+    refreshButton->setToolTip(tr("Reload both files from disk and compare again (F5)"));
     auto* compareButton = new QPushButton(tr("Compare"), this);
     compareButton->setDefault(true);
+    connect(refreshButton, &QPushButton::clicked, this, &TextCompareWidget::refreshFiles);
     connect(compareButton, &QPushButton::clicked, this, &TextCompareWidget::compareFiles);
     optionsLayout->addWidget(m_ignoreWhitespace);
     optionsLayout->addWidget(m_ignoreCase);
+    optionsLayout->addWidget(m_showLineNumbers);
+    optionsLayout->addSpacing(12);
+    optionsLayout->addWidget(new QLabel(tr("View:"), this));
+    optionsLayout->addWidget(m_viewMode);
     optionsLayout->addStretch();
+    optionsLayout->addWidget(refreshButton);
     optionsLayout->addWidget(compareButton);
     rootLayout->addLayout(optionsLayout);
 
@@ -105,6 +120,10 @@ void TextCompareWidget::setupUi() {
             m_leftEditor->verticalScrollBar(), &QScrollBar::setValue);
     connect(m_ignoreWhitespace, &QCheckBox::toggled, this, &TextCompareWidget::compareFiles);
     connect(m_ignoreCase, &QCheckBox::toggled, this, &TextCompareWidget::compareFiles);
+    connect(m_showLineNumbers, &QCheckBox::toggled,
+            this, &TextCompareWidget::compareFiles);
+    connect(m_viewMode, &QComboBox::currentIndexChanged,
+            this, &TextCompareWidget::compareFiles);
 }
 
 void TextCompareWidget::newComparison() {
@@ -161,19 +180,70 @@ void TextCompareWidget::compareFiles() {
     renderComparison();
 }
 
+void TextCompareWidget::refreshFiles() {
+    if (m_leftPath->text().isEmpty() || m_rightPath->text().isEmpty()) {
+        QMessageBox::information(this, tr("Select files"),
+                                 tr("Select both text files before refreshing."));
+        return;
+    }
+
+    const compare::TextLoadResult left =
+        compare::TextFileLoader::load(toPath(m_leftPath->text()));
+    const compare::TextLoadResult right =
+        compare::TextFileLoader::load(toPath(m_rightPath->text()));
+    if (!left.success || !right.success) {
+        const QString error = !left.success ? left.error : right.error;
+        QMessageBox::critical(this, tr("Unable to refresh files"), error);
+        return;
+    }
+
+    m_leftText = left.text;
+    m_rightText = right.text;
+    renderComparison();
+}
+
+QString TextCompareWidget::displayLine(const QString& text, const int lineNumber,
+                                       const int numberWidth) const {
+    if (!m_showLineNumbers->isChecked()) {
+        return text;
+    }
+    const QString number = lineNumber > 0
+        ? QString::number(lineNumber).rightJustified(numberWidth)
+        : QString(numberWidth, QLatin1Char(' '));
+    return QStringLiteral("%1 | %2").arg(number, text);
+}
+
 void TextCompareWidget::renderComparison() {
     compare::TextCompareEngine engine;
     const compare::NormalizationOptions options{m_ignoreWhitespace->isChecked(),
                                                  m_ignoreCase->isChecked()};
     const models::DiffModel model = engine.compare(m_leftText, m_rightText, options);
 
+    int maximumLeftLine = 0;
+    int maximumRightLine = 0;
+    for (const models::DiffLine& line : model) {
+        maximumLeftLine = std::max(maximumLeftLine, line.leftLine);
+        maximumRightLine = std::max(maximumRightLine, line.rightLine);
+    }
+    const int leftNumberWidth = QString::number(maximumLeftLine).size();
+    const int rightNumberWidth = QString::number(maximumRightLine).size();
+
+    const bool differencesOnly = m_viewMode->currentIndex() == 1;
+    models::DiffModel visibleModel;
+    visibleModel.reserve(model.size());
+    for (const models::DiffLine& line : model) {
+        if (!differencesOnly || line.type != models::DiffType::Equal) {
+            visibleModel.append(line);
+        }
+    }
+
     QStringList leftLines;
     QStringList rightLines;
-    leftLines.reserve(model.size());
-    rightLines.reserve(model.size());
-    for (const models::DiffLine& line : model) {
-        leftLines.append(line.leftText);
-        rightLines.append(line.rightText);
+    leftLines.reserve(visibleModel.size());
+    rightLines.reserve(visibleModel.size());
+    for (const models::DiffLine& line : visibleModel) {
+        leftLines.append(displayLine(line.leftText, line.leftLine, leftNumberWidth));
+        rightLines.append(displayLine(line.rightText, line.rightLine, rightNumberWidth));
     }
     m_leftEditor->setPlainText(leftLines.join(QLatin1Char('\n')));
     m_rightEditor->setPlainText(rightLines.join(QLatin1Char('\n')));
@@ -181,8 +251,8 @@ void TextCompareWidget::renderComparison() {
     QList<QTextEdit::ExtraSelection> leftSelections;
     QList<QTextEdit::ExtraSelection> rightSelections;
     int differenceCount = 0;
-    for (qsizetype index = 0; index < model.size(); ++index) {
-        const models::DiffType type = model.at(index).type;
+    for (qsizetype index = 0; index < visibleModel.size(); ++index) {
+        const models::DiffType type = visibleModel.at(index).type;
         if (type == models::DiffType::Removed) {
             leftSelections.append(lineSelection(m_leftEditor, static_cast<int>(index),
                                                 QColor(255, 205, 205)));
@@ -199,9 +269,13 @@ void TextCompareWidget::renderComparison() {
     }
     m_leftEditor->setExtraSelections(leftSelections);
     m_rightEditor->setExtraSelections(rightSelections);
-    emit statusMessage(differenceCount == 0
-                           ? tr("Files are identical")
-                           : tr("Comparison complete: %1 changed lines").arg(differenceCount));
+    if (differenceCount == 0) {
+        emit statusMessage(tr("Files are identical"));
+    } else if (differencesOnly) {
+        emit statusMessage(tr("Showing %1 differing lines").arg(differenceCount));
+    } else {
+        emit statusMessage(tr("Comparison complete: %1 changed lines").arg(differenceCount));
+    }
 }
 
 } // namespace bcclone::ui

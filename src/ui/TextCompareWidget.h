@@ -3,6 +3,7 @@
 #include <QWidget>
 
 class QCheckBox;
+class QComboBox;
 class QLineEdit;
 class QPlainTextEdit;
 
@@ -19,6 +20,7 @@ public slots:
     void openLeftFile();
     void openRightFile();
     void compareFiles();
+    void refreshFiles();
 
 signals:
     void statusMessage(const QString& message);
@@ -30,6 +32,8 @@ private:
     void chooseFile(Side side);
     bool loadFile(const QString& path, Side side);
     void renderComparison();
+    [[nodiscard]] QString displayLine(const QString& text, int lineNumber,
+                                      int numberWidth) const;
 
     QLineEdit* m_leftPath{nullptr};
     QLineEdit* m_rightPath{nullptr};
@@ -37,6 +41,8 @@ private:
     QPlainTextEdit* m_rightEditor{nullptr};
     QCheckBox* m_ignoreWhitespace{nullptr};
     QCheckBox* m_ignoreCase{nullptr};
+    QCheckBox* m_showLineNumbers{nullptr};
+    QComboBox* m_viewMode{nullptr};
     QString m_leftText;
     QString m_rightText;
 };

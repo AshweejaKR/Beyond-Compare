@@ -57,7 +57,9 @@ Windows with Visual Studio (multi-config generator):
 Use the tabs in the main window:
 
 1. **Text Compare** — choose left and right files. Differences are aligned
-   and highlighted; whitespace and case can be ignored.
+   and highlighted; whitespace and case can be ignored. Use **Refresh** or
+   press **F5** after either source file changes on disk. The view can show
+   all lines or differences only, with optional original line numbers.
 2. **Folder Compare** — choose two folders, optionally enter filters such as
    `*.cpp;*.h`, and compare. SHA-256 content verification is enabled by default.
 3. **Binary Compare** — choose two files up to 2 MiB each. Differing bytes are

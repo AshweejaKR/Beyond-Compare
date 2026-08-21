@@ -93,9 +93,12 @@ void MainWindow::setupMenuBar() {
     connect(openRightAction, &QAction::triggered,
             m_textCompareWidget, &TextCompareWidget::openRightFile);
     auto* compareAction = fileMenu->addAction(tr("&Compare Files"));
-    compareAction->setShortcut(Qt::Key_F5);
     connect(compareAction, &QAction::triggered,
             m_textCompareWidget, &TextCompareWidget::compareFiles);
+    auto* refreshAction = fileMenu->addAction(tr("&Refresh Files"));
+    refreshAction->setShortcut(Qt::Key_F5);
+    connect(refreshAction, &QAction::triggered,
+            m_textCompareWidget, &TextCompareWidget::refreshFiles);
 
     fileMenu->addSeparator();
     auto* exitAction = fileMenu->addAction(tr("E&xit"));
@@ -134,6 +137,9 @@ void MainWindow::setupToolBar() {
     auto* compareAction = toolBar->addAction(tr("Compare"));
     connect(compareAction, &QAction::triggered,
             m_textCompareWidget, &TextCompareWidget::compareFiles);
+    auto* refreshAction = toolBar->addAction(tr("Refresh"));
+    connect(refreshAction, &QAction::triggered,
+            m_textCompareWidget, &TextCompareWidget::refreshFiles);
 }
 
 void MainWindow::applyDarkTheme() {

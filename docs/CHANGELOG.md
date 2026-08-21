@@ -4,6 +4,23 @@ This file is the mandatory resume point for every Claude Code session.
 
 ## Unreleased
 
+### 2026-08-21 --- Text Compare Usability
+
+Completed - Added a manual Refresh command and F5 shortcut that reload both
+open text files from disk. Added Show all lines / Show differences only view
+selection and optional original line numbers in both panes.
+
+Files Modified - src/ui/TextCompareWidget.h/.cpp - src/ui/MainWindow.cpp -
+README.md
+
+Verification - Configure: pass - Full warnings-as-errors build: pass -
+Application launch: pass - Manual UI smoke check confirmed disk reload,
+differences-only filtering, and line-number toggling: pass.
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md - README.md
+
+------------------------------------------------------------------------
+
 ### Current Status
 
 Phases 0-4 complete. The application provides working text, folder, and

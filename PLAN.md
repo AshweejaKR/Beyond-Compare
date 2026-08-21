@@ -160,3 +160,13 @@ streaming belongs to the planned performance phase.
 
 Next Task - Future Phase 5: Merge Tool. The requested text, folder, and
 binary comparison baseline is complete.
+
+### 2026-08-21 --- Text Compare Usability Update
+
+Completed - Added manual disk refresh through the text page, File menu,
+toolbar, and F5 shortcut. Added all-lines/differences-only filtering and
+optional original line numbers for both comparison panes.
+
+Decisions - Refresh updates both cached file contents atomically before
+rendering, so a failure to reload either side never produces a mixed old/new
+comparison. Differences-only mode retains original source line numbers.
