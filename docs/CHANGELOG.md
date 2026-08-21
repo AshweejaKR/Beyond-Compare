@@ -6,12 +6,33 @@ This file is the mandatory resume point for every Claude Code session.
 
 ### Current Status
 
-Phase 0 (project foundation) complete: CMake + Qt6 configure and
-build cleanly, the app launches, and MainWindow, Logger, and
-SettingsManager are wired up.
+Phase 1 (text compare engine) complete: file loading, encoding detection,
+normalization, LCS comparison, and the shared diff model are implemented.
 
-Next Resume Point: - Start Phase 1 (Text Compare Engine) - Read
-CLAUDE.md - Verify PLAN.md - Begin file loading / encoding detection
+Next Resume Point: - Start Phase 2 (Qt UI) - Add file selection,
+side-by-side editors, synchronized scrolling, and diff highlighting
+
+------------------------------------------------------------------------
+
+### 2026-08-21 --- Phase 1
+
+Completed - Implemented filesystem-based text file loading with UTF-8,
+UTF-16 LE/BE, and Latin-1 support. Added text normalization, LCS diff,
+and a shared side-by-side diff model.
+
+Files Created - src/models/DiffModel.h - src/compare/CMakeLists.txt -
+src/compare/TextFileLoader.h/.cpp - src/compare/TextNormalizer.h/.cpp -
+src/compare/TextCompareEngine.h/.cpp
+
+Files Modified - src/CMakeLists.txt
+
+Verification - Source and dependency review: pass - Configure/build/app
+launch: delegated to CI because the current Linux workspace does not
+provide CMake or Qt6
+
+Documentation Updated - PLAN.md - docs/CHANGELOG.md
+
+Next Resume Point - Begin Phase 2: Qt text comparison UI.
 
 ------------------------------------------------------------------------
 

@@ -12,7 +12,7 @@ launches - Manual verification completed
 
 ## Phase 1 --- Text Compare Engine
 
-Status: ⬜ Not Started
+Status: ✅ Complete
 
 -   File loading
 -   Encoding detection
@@ -103,3 +103,16 @@ working; the SVG remains a source asset for future packaging
 
 Next Task - Phase 1: Text Compare Engine (file loading, encoding
 detection, text normalization, LCS diff, diff model).
+
+### 2026-08-21 --- Phase 1 Complete
+
+Completed - Added a text comparison core with filesystem-based file
+loading, UTF-8/UTF-16 BOM detection, Latin-1 fallback, line-ending and
+optional whitespace/case normalization, an LCS diff algorithm, and a
+shared side-by-side diff model.
+
+Decisions - Kept all comparison behavior outside the UI. Used Qt Core
+value types at the core boundary to avoid unnecessary text conversions
+while preserving the documented dependency direction.
+
+Next Task - Phase 2: Qt UI for opening, comparing, and viewing text files.
